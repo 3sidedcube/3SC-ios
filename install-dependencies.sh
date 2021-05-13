@@ -13,8 +13,11 @@ CYAN_COLOR='\033[0;36m'
 RED_COLOR='\033[0;31m'
 NO_COLOR='\033[0m'
 
+# Name of script, can not use $0 in case this script is fetched from a remote
+SCRIPT_NAME=`basename "$0"`
+
 # Usage
-usage() { printf "${RED_COLOR}Usage: $0 [-s]${NO_COLOR}\n" 1>&2; exit 1; }
+usage() { printf "${RED_COLOR}Usage: ${SCRIPT_NAME} [-s]${NO_COLOR}\n" 1>&2; exit 1; }
 
 # Read script arguments
 installDependencies='true'
