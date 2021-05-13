@@ -13,7 +13,7 @@ CYAN_COLOR='\033[0;36m'
 RED_COLOR='\033[0;31m'
 NO_COLOR='\033[0m'
 
-# Name of script, can not use $0 in case this script is fetched from a remote
+# Name of script
 SCRIPT_NAME=`basename "$0"`
 
 # Usage
