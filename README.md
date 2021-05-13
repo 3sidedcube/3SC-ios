@@ -21,9 +21,15 @@ INSTALL_DEPENDENCIES_SCRIPT_URL="https://raw.githubusercontent.com/3sidedcube/3S
 curl -sfL ${INSTALL_DEPENDENCIES_SCRIPT_URL} | bash -s -- $@
 ```
 
-# ios-gitignore.txt
-The [ios-gitignore.txt](https://github.com/3sidedcube/3SC-ios/blob/master/ios-gitignore.txt) is a common `.gitignore` file used in iOS projects.
+# ios-gitignore
+The [ios-gitignore](https://github.com/3sidedcube/3SC-ios/blob/master/ios-gitignore) is a common `.gitignore` file used in iOS projects.
 
 ## Usage
-Bring into the root of your `.xcodeproj` project as the `.gitignore` file.
+Bring into the root of your project as the `.gitignore` file.
+
+# ios-swiftlint.yml
+The [ios-swiftlint.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-swiftlint.yml) is a common `.swiftlint.yml` file used in iOS projects.
+
+## Usage
+Bring into the root of your project as the `.swiftlint.yml` file.
 
