@@ -8,12 +8,13 @@
 # Arguments:
 # -s to skip installing dependencies
 
-# Usage
-usage() { echo "Usage: $0 [-s]" 1>&2; exit 1; }
-
-# Colors for `echo`
-COLOR='\033[0;36m'
+# Colors for `printf`
+CYAN_COLOR='\033[0;36m'
+RED_COLOR='\033[0;31m'
 NO_COLOR='\033[0m'
+
+# Usage
+usage() { printf "${RED_COLOR}Usage: $0 [-s]${NO_COLOR}\n" 1>&2; exit 1; }
 
 # Read script arguments
 installDependencies='true'
@@ -32,7 +33,7 @@ shift $((OPTIND-1))
 # Install dependencies if flag is set to `true`
 if $installDependencies; then
     # Homebrew
-    echo "${COLOR}Fetching or updating Homebrew${NO_COLOR}"
+    printf "${CYAN_COLOR}Fetching or updating Homebrew${NO_COLOR}\n"
     which -s brew
     if [[ $? != 0 ]] ; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -41,7 +42,7 @@ if $installDependencies; then
     fi
 
     # Swift Lint
-    echo "${COLOR}Fetching or updating Swift Lint${NO_COLOR}"
+    printf "${CYAN_COLOR}Fetching or updating Swift Lint${NO_COLOR}\n"
     which -s swiftlint
     if [[ $? != 0 ]] ; then
         brew install swiftlint
@@ -50,7 +51,7 @@ if $installDependencies; then
     fi
 
     # Carthage
-    echo "${COLOR}Fetching or updating Carthage${NO_COLOR}"
+    printf "${CYAN_COLOR}Fetching or updating Carthage${NO_COLOR}\n"
     which -s carthage
     if [[ $? != 0 ]] ; then
         brew install carthage
