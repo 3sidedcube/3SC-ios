@@ -20,3 +20,10 @@ INSTALL_DEPENDENCIES_SCRIPT_URL="https://raw.githubusercontent.com/3sidedcube/3S
 # Fetch install script and pass in command line arguments
 curl -sfL ${INSTALL_DEPENDENCIES_SCRIPT_URL} | bash -s -- $@
 ```
+
+# ios-gitignore.txt
+The [ios-gitignore.txt](https://github.com/3sidedcube/3SC-ios/tree/master/ios-gitignore.txt) is a common `.gitignore` file used in iOS projects.
+
+## Usage
+Bring into the root of your `.xcodeproj` project as the `.gitignore` file.
+
