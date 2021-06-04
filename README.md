@@ -21,6 +21,8 @@ INSTALL_DEPENDENCIES_SCRIPT_URL="https://raw.githubusercontent.com/3sidedcube/3S
 curl -sfL ${INSTALL_DEPENDENCIES_SCRIPT_URL} | bash -s -- $@
 ```
 
+To skip installing the dependencies pass `--skip-dependencies` as a command line argument.
+
 # ios-gitignore
 The [ios-gitignore](https://github.com/3sidedcube/3SC-ios/blob/master/ios-gitignore) is a common `.gitignore` file used in iOS projects.
 
