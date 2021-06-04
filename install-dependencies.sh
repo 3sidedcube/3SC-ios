@@ -19,9 +19,6 @@ SCRIPT_NAME=`basename "$0"`
 # Flag which, when found as a command line argument, skips this installation  
 SKIP_DEPENDENCIES_FLAG="--skip-dependencies"
 
-# Usage
-usage() { printf "${RED_COLOR}Usage: ${SCRIPT_NAME} [-s]${NO_COLOR}\n" 1>&2; exit 1; }
-
 # Read script command line arguments
 if [[ $* == *${SKIP_DEPENDENCIES_FLAG}* ]]; then
     # Exit script with success
