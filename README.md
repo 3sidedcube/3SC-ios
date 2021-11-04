@@ -50,6 +50,29 @@ When `develop` is pushed, `live` is run to upload a new build to App Store Conne
 
 This file needs app specific changes, e.g. point at the App Store team ID.
 
+## Secret Environment Variables
+
+* `APPLE_ID`
+* `APPLE_ID_PASSWORD`
+* `APP_SPECIFIC_PASSWORD`
+* `GITHUB_ACCESS_TOKEN` (expose this for PRs)
+* `SLACK_WEBHOOK`
+* `APP_SLACK_WEBHOOK`
+
+### Note
+
+The Slack webhook will post all builds into the 3SC Bitrise channel.
+The app Slack webhook can be used to post to specific channel.
+The Slack webhook method is deprecated by Slack (but still works), the app webhook uses a Slack app.
+
+## Environment Variables
+
+* `BITRISE_PROJECT_PATH = <project-name>.xcodeproj`
+* `BITRISE_SCHEME = <project-name>`
+* `BITRISE_EXPORT_METHOD = app-store`
+* `INFO_PLIST_PATH = <project-name>/Info.plist`
+* `TEAM_ID = <team-id>`
+
 ## Usage
-Use when creating a Bitrise app.
+Use when creating a Bitrise app. Can be stored in the project repository.
 
