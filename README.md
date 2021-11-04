@@ -35,3 +35,21 @@ The [ios-swiftlint.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-sw
 ## Usage
 Bring into the root of your project as the `.swiftlint.yml` file.
 
+# bitrise.yml
+The [bitrise.yml](https://github.com/3sidedcube/3SC-ios/blob/master/bitrise.yml) is a common `bitrise.yml` file used in iOS projects.
+It creates the following workflows:
+
+* `install`: Fetch from the remote, install dependencies, and execute tests
+* `app-store`: Sign, build, and upload to App Store Connect (should not be run individually)
+* `live`: Run `install`, point at live environments, and then run `app-store`
+* `staging`: Run `install`, point at staging environments, and then run `app-store`
+* `test`: Run `install`, point at test environments, and then run `app-store`
+
+When a PR is created, an `install` build is triggered to check that the app builds and its tests pass.
+When `develop` is pushed, `live` is run to upload a new build to App Store Connect.
+
+This file needs app specific changes, e.g. point at the App Store team ID.
+
+## Usage
+Use when creating a Bitrise app.
+
