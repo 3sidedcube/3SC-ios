@@ -1,0 +1,169 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+workflows:
+  app-store:
+    steps:
+    - slack@3:
+        title: 'Slack Bitrise Channel: Requested'
+        inputs:
+        - pretext: "*Build Requested!*"
+        - webhook_url: "$SLACK_WEBHOOK"
+        - color: warning
+    - ios-auto-provision@2:
+        inputs:
+        - team_id: "$TEAM_ID"
+        - generate_profiles: 'yes'
+        - distribution_type: app-store
+    - set-xcode-build-number@1:
+        inputs:
+        - plist_path: "$INFO_PLIST_PATH"
+    - xcode-archive@3:
+        inputs:
+        - export_method: app-store
+        - team_id: "$TEAM_ID"
+    - deploy-to-itunesconnect-application-loader@1:
+        inputs:
+        - password: "$APPLE_ID_PASSWORD"
+        - app_password: "$APP_SPECIFIC_PASSWORD"
+        - altool_options: "--asc_provider ShortProviderName"
+        - itunescon_user: "$APPLE_ID"
+    - deploy-to-bitrise-io@2:
+        is_always_run: false
+        inputs:
+        - notify_user_groups: none
+    - slack@3:
+        title: 'Slack App Channel: Succeeded'
+        is_always_run: false
+        inputs:
+        - color: good
+        - text: "*A new iOS build has been uploaded to Test Flight*"
+        - pretext: ''
+        - author_name: ''
+        - title: ''
+        - message: ''
+        - fields: |
+            App|${BITRISE_APP_TITLE}
+            Branch|${BITRISE_GIT_BRANCH}
+            Workflow|${BITRISE_TRIGGERED_WORKFLOW_ID}
+            Build Number|${BITRISE_BUILD_NUMBER}
+        - webhook_url: "$APP_SLACK_WEBHOOK"
+    - slack@3:
+        title: 'Slack Bitrise Channel: Succeeded'
+        inputs:
+        - color: good
+        - webhook_url: "$SLACK_WEBHOOK"
+  install:
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - script@1:
+        title: Install
+        inputs:
+        - content: |
+            #!/usr/bin/env bash
+
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # Run the install script.
+            # Note: Carthage is skipped in Bitrise in preference of the Carthage build step.
+            # This is to work around the: "API rate limit exceeded for..." error (which does not happen locally).
+            # Ref: https://discuss.bitrise.io/t/api-rate-limit-error/238
+            ./scripts/install.sh --skip-carthage
+    - carthage@3:
+        inputs:
+        - carthage_options: "--use-xcframeworks --platform iOS"
+        - carthage_command: update
+    - xcode-test@3:
+        inputs:
+        - simulator_device: iPhone 13
+  live:
+    before_run:
+    - install
+    after_run:
+    - app-store
+    steps:
+    - script@1:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # Set staging environment
+            ./scripts/environments/live.sh
+        title: Live
+  primary:
+    before_run:
+    - install
+    after_run:
+    - app-store
+  staging:
+    before_run:
+    - install
+    after_run:
+    - app-store
+    steps:
+    - script@1:
+        title: Staging
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # Set staging environment
+            ./scripts/environments/staging.sh
+  test:
+    before_run:
+    - install
+    after_run:
+    - app-store
+    steps:
+    - script@1:
+        title: Test
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # Set staging environment
+            ./scripts/environments/test.sh
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: ProjectName.xcodeproj # TODO
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: ProjectName # TODO
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: app-store
+  - opts:
+      is_expand: false
+    INFO_PLIST_PATH: ProjectName/Info.plist # TODO
+  - opts:
+      is_expand: false
+    TEAM_ID: TeamId # TODO
+trigger_map:
+- push_branch: develop
+  workflow: test
+- push_branch: release/*
+  workflow: live
+- push_branch: hotfix/*
+  workflow: live
+- pull_request_source_branch: "*"
+  workflow: install
+
