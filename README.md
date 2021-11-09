@@ -35,8 +35,8 @@ The [ios-swiftlint.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-sw
 ## Usage
 Bring into the root of your project as the `.swiftlint.yml` file.
 
-# bitrise.yml
-The [bitrise.yml](https://github.com/3sidedcube/3SC-ios/blob/master/bitrise.yml) is a common `bitrise.yml` file used in iOS projects.
+# ios-bitrise.yml
+The [ios-bitrise.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-bitrise.yml) is a common `bitrise.yml` file used in iOS projects.
 It creates the following workflows:
 
 * `install`: Fetch from the remote, install dependencies, and execute tests
