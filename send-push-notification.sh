@@ -5,10 +5,10 @@
 #
 
 # App bundle ID
-TOPIC="<enter-app-bundle-id>"
+TOPIC="<app-bundle-id>"
 
 # Device token to send to
-DEVICE_TOKEN="<enter-device-token>"
+DEVICE_TOKEN="<device-token>"
 
 # APNS host to connect to
 APNS_HOST_NAME="api.push.apple.com" # api.sandbox.push.apple.com
