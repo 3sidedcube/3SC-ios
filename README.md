@@ -80,5 +80,5 @@ Use when creating a Bitrise app. Can be stored in the project repository.
 
 After creating an APNS certificate in the Apple developer console, you can install it in your keychain and export it as a `.p12` file.
 [This script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-notification.sh), once the variables are set, can then be used to send a push notification.
-It more or less following the steps outlined by Apple in their PNs command line documentation [here](https://developer.apple.com/documentation/usernotifications/sending_push_notifications_using_command-line_tools).
+It follows the steps outlined by Apple in their PNs command line documentation [here](https://developer.apple.com/documentation/usernotifications/sending_push_notifications_using_command-line_tools) but with P12 files.
 
