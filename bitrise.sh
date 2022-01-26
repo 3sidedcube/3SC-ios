@@ -125,10 +125,10 @@ rm -rf ${BITRISE_FILE}
 cp ${TEMPLATE_BITRISE_FILE} ${BITRISE_FILE}
 
 # Replace project name
-sed -i '' 's/{projectName}/${projectName}/g' ${BITRISE_FILE} # Command for Mac users
+sed -i '' "s/{projectName}/${projectName}/g" ${BITRISE_FILE} # Command for Mac users
 
 # Replace team ID
-sed -i '' 's/{teamId}/${teamId}/g' ${BITRISE_FILE} # Command for Mac users
+sed -i '' "s/{teamId}/${teamId}/g" ${BITRISE_FILE} # Command for Mac users
 
 # Clean up
 cleanup
