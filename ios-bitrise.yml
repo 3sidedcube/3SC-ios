@@ -146,19 +146,19 @@ app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: <project-name>.xcodeproj # TODO
+    BITRISE_PROJECT_PATH: {projectName}.xcodeproj
   - opts:
       is_expand: false
-    BITRISE_SCHEME: <project-name> # TODO
+    BITRISE_SCHEME: {projectName}
   - opts:
       is_expand: false
     BITRISE_EXPORT_METHOD: app-store
   - opts:
       is_expand: false
-    INFO_PLIST_PATH: <project-name>/Info.plist # TODO
+    INFO_PLIST_PATH: {projectName}/Info.plist
   - opts:
       is_expand: false
-    TEAM_ID: <team-id> # TODO 
+    TEAM_ID: {teamId}
 trigger_map:
 - push_branch: develop
   workflow: test
@@ -168,3 +168,6 @@ trigger_map:
   workflow: live
 - pull_request_source_branch: '*'
   workflow: install
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.1.x
