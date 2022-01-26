@@ -76,6 +76,12 @@ The Slack webhook method is deprecated by Slack (but still works), the app webho
 ## Usage
 Use when creating a Bitrise app. Can be stored in the project repository.
 
+## Helper Script
+Create a `bitrise.yml` in your project by running:
+```bash
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/develop/bitrise.sh)"
+```
+
 # Sending Push Notifications
 
 After creating an APNS certificate in the Apple developer console, you can install it in your keychain and export it as a `.p12` file.
