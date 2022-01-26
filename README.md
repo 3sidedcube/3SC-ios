@@ -79,7 +79,7 @@ Use when creating a Bitrise app. Can be stored in the project repository.
 ## Helper Script
 Create a `bitrise.yml` in your project by running:
 ```bash
-bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/develop/bitrise.sh)"
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/bitrise.sh)"
 ```
 
 # Sending Push Notifications

@@ -14,7 +14,7 @@ BITRISE_FILE="bitrise.yml"
 TEMPLATE_BITRISE_FILE="template-bitrise.yml"
 
 # Remote script to fetch template file
-TEMPLATE_BITRISE_FILE_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/develop/ios-bitrise.yml" # TODO
+TEMPLATE_BITRISE_FILE_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/ios-bitrise.yml"
 
 # Red color
 RED='\033[0;31m'
