@@ -11,11 +11,6 @@ workflows:
         - pretext: '*Build Requested!*'
         - webhook_url: $SLACK_WEBHOOK
         - color: warning
-    - ios-auto-provision@2:
-        inputs:
-        - team_id: $TEAM_ID
-        - generate_profiles: 'yes'
-        - distribution_type: app-store
     - set-xcode-build-number@1:
         inputs:
         - plist_path: $INFO_PLIST_PATH
@@ -23,6 +18,8 @@ workflows:
         inputs:
         - export_method: app-store
         - distribution_method: app-store
+        - automatic_code_signing: apple-id
+        - export_development_team: $TEAM_ID
         - team_id: $TEAM_ID
     - deploy-to-itunesconnect-application-loader@1:
         inputs:
@@ -82,7 +79,7 @@ workflows:
         - carthage_command: update
     - xcode-test@4:
         inputs:
-        - simulator_device: iPhone 13
+        - destination: 'platform=iOS Simulator,name=iPhone 13,OS=latest'
   live:
     before_run:
     - install
