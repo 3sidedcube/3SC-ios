@@ -61,6 +61,7 @@ This file needs app specific changes, e.g. point at the App Store team ID.
 
 Note the `APP_SLACK_WEBHOOK` depends on the channel you want to post messages into.
 You need to open the [3SC-Bitrise Slack app](https://api.slack.com/apps/A024S8Q7SKG) and add a new "Incoming Webhook".
+The others are shared across apps and can be taken from another app.
 
 ### Note
 
