@@ -66,12 +66,7 @@ workflows:
             # debug log
             set -x
 
-            # Run the install script.
-            # Note: Carthage is skipped in Bitrise in preference of the 
-            # Carthage build step.
-            # This is to work around the: "API rate limit exceeded for..." 
-            # error (which does not happen locally).
-            # Ref: https://discuss.bitrise.io/t/api-rate-limit-error/238
+            # Run the install script skipping carthage.
             ./scripts/install.sh --skip-carthage
     - carthage@3:
         inputs:
