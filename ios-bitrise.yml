@@ -11,9 +11,13 @@ workflows:
         - pretext: '*Build Requested!*'
         - webhook_url: $SLACK_WEBHOOK
         - color: warning
-    - set-xcode-build-number@1:
+        is_always_run: false
+    - script@1:
+        title: 'Set Xcode Build Number'
         inputs:
-        - plist_path: $INFO_PLIST_PATH
+        - content: |-
+            #!/usr/bin/env bash
+            ./scripts/set-build-number.sh $BITRISE_BUILD_NUMBER
     - xcode-archive@4:
         inputs:
         - export_method: app-store
@@ -28,7 +32,6 @@ workflows:
         - altool_options: '--asc_provider ShortProviderName'
         - itunescon_user: $APPLE_ID
     - deploy-to-bitrise-io@2:
-        is_always_run: false
         inputs:
         - notify_user_groups: none
     - slack@3:
@@ -52,21 +55,28 @@ workflows:
         inputs:
         - color: good
         - webhook_url: $SLACK_WEBHOOK
+        is_always_run: false
+  dev:
+    before_run:
+    - install
+    after_run:
+    - app-store
+    steps:
+    - script@1:
+        title: 'Dev'
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            ./scripts/environments/dev.sh
   install:
     steps:
     - activate-ssh-key@4: {}
     - git-clone@6: {}
     - script@1:
-        title: Install
+        title: 'Install'
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # Run the install script skipping carthage.
             ./scripts/install.sh --skip-carthage
     - carthage@3:
         inputs:
@@ -82,17 +92,11 @@ workflows:
     - app-store
     steps:
     - script@1:
+        title: 'Live'
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # Set staging environment
             ./scripts/environments/live.sh
-        title: Live
   primary:
     before_run:
     - install
@@ -105,16 +109,10 @@ workflows:
     - app-store
     steps:
     - script@1:
-        title: Staging
+        title: 'Staging'
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # Set staging environment
             ./scripts/environments/staging.sh
   test:
     before_run:
@@ -123,16 +121,10 @@ workflows:
     - app-store
     steps:
     - script@1:
-        title: Test
+        title: 'Test'
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # Set staging environment
             ./scripts/environments/test.sh
 app:
   envs:
