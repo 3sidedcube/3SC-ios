@@ -50,6 +50,9 @@ When `develop` is pushed, `live` is run to upload a new build to App Store Conne
 
 This file needs app specific changes, e.g. point at the App Store team ID.
 
+## Documentation
+There is a [Confluence page](https://3sidedcube.atlassian.net/wiki/spaces/IM/pages/2354413569) documenting the steps taken when creating an iOS app in Bitrise using a `bitrise.yml` file.
+
 ## Secret Environment Variables
 
 * `APPLE_ID`
@@ -85,6 +88,11 @@ Create a `bitrise.yml` in your project by running:
 ```bash
 bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/bitrise.sh)"
 ```
+
+## Scripts
+There are various scripts run by the `bitrise.yml` steps.
+These can be found in the [build-scripts](https://github.com/3sidedcube/3SC-ios/blob/master/build-scripts) directory.
+Make sure to edit them so they are relevant to your app.
 
 # Sending Push Notifications
 
