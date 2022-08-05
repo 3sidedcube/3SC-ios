@@ -96,7 +96,15 @@ Make sure to edit them so they are relevant to your app.
 
 # Sending Push Notifications
 
-After creating an APNS certificate in the Apple developer console, you can install it in your keychain and export it as a `.p12` file.
-[This script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-notification.sh), once the variables are set, can then be used to send a push notification.
-It follows the steps outlined by Apple in their PNs command line documentation [here](https://developer.apple.com/documentation/usernotifications/sending_push_notifications_using_command-line_tools) but with P12 files.
+You can send yourself a push notification using a token (`p8`) or certificate (`p12`).
+Both can be generated in the Apple Developer Console. 
+In the case of `p12`, typically a `cer` file is installed to your keychain and then exported as a `p12`.
 
+The scripts below follow the steps outlined by Apple in their PNs [command line tools documentation](https://developer.apple.com/documentation/usernotifications/sending_push_notifications_using_command-line_tools).
+In both cases, make sure to **set the variables** at the top of the script before sending!
+
+## Token (p8)
+Send a push notification using a `p8` with [this script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-p8.sh).
+
+## Certificate (p12)
+Send a push notification using a `p12` with [this script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-p12.sh).
