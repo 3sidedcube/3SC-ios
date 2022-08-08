@@ -41,5 +41,6 @@ curl -v \
     --cert-type P12 \
     --cert "${P12_FILE}:${P12_PASSWORD}" \
     --data '{"aps":{"alert":"Test"}}' \
-    --http2 https://${APNS_HOST_NAME}/3/device/${DEVICE_TOKEN}
+    --http2 \
+    https://${APNS_HOST_NAME}/3/device/${DEVICE_TOKEN}
 

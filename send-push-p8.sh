@@ -50,6 +50,7 @@ curl -v \
   --header "apns-topic: ${TOPIC}" \
   --header "apns-push-type: alert" \
   --header "authorization: bearer ${AUTHENTICATION_TOKEN}" \
-  --data '{"aps":{"alert":"test"}}' 
-  --http2 https://${APNS_HOST_NAME}/3/device/${DEVICE_TOKEN}
+  --data '{"aps":{"alert":"test"}}' \
+  --http2 \
+  https://${APNS_HOST_NAME}/3/device/${DEVICE_TOKEN}
 
