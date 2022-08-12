@@ -1,11 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #
-# Create a bitrise.yml after taking user input
-#  
-# Usage:
-# $ ./bitrise.sh
+# Script: bitrise.sh
+# Usage: ./bitrise.sh
 #
+# Create a bitrise.yml from user input.
+#
+
+# Set defaults
+set -o nounset -o errexit -o errtrace -o pipefail
+
+# ============================== Variables ==============================
 
 # File to write
 BITRISE_FILE="bitrise.yml"
@@ -28,6 +33,8 @@ YELLOW='\033[0;33m'
 # No color
 NC='\033[0m'
 
+# ============================== Functions ==============================
+
 # Print with red
 function printRed {
     printf "${RED}$@${NC}\n"
@@ -49,14 +56,14 @@ function print {
 }
 
 # Print error message and exit with failure
-fatalError() {
+function fatalError {
     printRed "$1" 1>&2
     exit 1
 }
 
 # Prompt the user for input.
 # Returns the response string.
-prompt() {
+function prompt {
     local response
     read -r -p "$(printYellow $1) " response
     echo "${response}"
@@ -64,7 +71,7 @@ prompt() {
 
 # Prompt the user for yes or no input.
 # Returns 0 on (a variation of) yes, 1 otherwise.
-promptYN() {
+function promptYN {
     local response=$(prompt "$1 [y/N]")
     if [[ "${response}" =~ ^([yY][eE][sS]|[yY])$ ]]; then
         return 0 # 0 for exit success, not to be confused with false
@@ -74,7 +81,7 @@ promptYN() {
 }
 
 # Check input is not empty
-checkNotEmpty() {
+function checkNotEmpty {
     if [ -z "$1" ]; then
         fatalError "Input can not be empty. Exiting..."
     fi
@@ -85,13 +92,10 @@ function cleanup {
     rm -rf "${TEMPLATE_BITRISE_FILE}"
 }
 
-# Abort script if a command fails
-set -e
+# ============================== Start ==============================
 
 # Clean up on exit
 trap cleanup EXIT
-
-# ============================== Start ==============================
 
 # Clean up
 cleanup
