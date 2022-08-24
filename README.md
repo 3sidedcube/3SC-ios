@@ -31,7 +31,9 @@ This file needs app specific changes, e.g. point at the App Store Team ID.
 Save as `bitrise.yml` in the root project directory.
 
 ### Documentation
-There is a [Confluence page](https://3sidedcube.atlassian.net/wiki/spaces/IM/pages/2354413569) documenting the steps taken when creating an iOS app in Bitrise using a `bitrise.yml` file.
+
+* There is a [Bitrise Setup](https://3sidedcube.atlassian.net/wiki/spaces/IM/pages/2354413569) Confluence page documenting the steps taken when creating an iOS app in Bitrise using a `bitrise.yml` file.
+* There is a [Bitrise Monthly 2FA](https://3sidedcube.atlassian.net/l/cp/28cp3Fv5) Confluence page documenting the steps required to reauthenticate Bitrise (Apple Service Connection) 2FA each month.
 
 ### Secret Environment Variables
 
