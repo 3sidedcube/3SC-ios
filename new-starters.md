@@ -23,3 +23,5 @@ Using Homebrew you can install:
 * [SwiftLint](https://github.com/realm/SwiftLint) for linting in Swift (`brew install swiftlint`)
 * [Carthage](https://github.com/Carthage/Carthage) for building binary frameworks (`brew install carthage`)
 
+## Bitbucket SSH Keys
+Please follow this [Atlassian SSH Keys Guide](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/) carefully to ensure your Git client can authenticate with Bitbucket.
