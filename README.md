@@ -1,33 +1,6 @@
 # 3SC-ios
 A repository of useful files and documentation for iOS development at [3 Sided Cube](https://3sidedcube.com/).
-
-## New Starters
-Welcome to 3 Sided Cube 👋. It's great to have you on board with us!
-
-### Your Toolkit
-For iOS, standard tools we recommend getting set up with include, but are not limited to:
-
-* [Xcode](https://developer.apple.com/xcode/) and command line tools
-* Various [Developer tools](#developer-tools)
-* (Optional) Git GUI like [Github Desktop](https://desktop.github.com/)
-* (Optional) Merge conflict editor like [VSCode](https://code.visualstudio.com/)
-* (Optional) [Figma](https://www.figma.com/downloads/) desktop app for designs
-
-### Developer Tools
-
-Firstly, make sure to install [Homebrew](https://brew.sh/)
-```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-Using Homebrew you can install:
-
-* [Git](https://git-scm.com/) for version control (`brew install git`)
-* [SwiftLint](https://github.com/realm/SwiftLint) for linting in Swift (`brew install swiftlint`)
-* [Carthage](https://github.com/Carthage/Carthage) for building binary frameworks (`brew install carthage`)
-
-### Bitbucket SSH Keys
-Please follow this [Atlassian SSH Keys Guide](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/) carefully to ensure your Git client can authenticate with Bitbucket.
+If you are a new starter, we have a [guide](https://github.com/3sidedcube/3SC-ios/blob/master/new-starters.md) to help you get set up.
 
 ## ios-gitignore
 The [ios-gitignore](https://github.com/3sidedcube/3SC-ios/blob/master/ios-gitignore) is a common `.gitignore` file used in iOS projects.
