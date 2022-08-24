@@ -154,4 +154,4 @@ trigger_map:
   workflow: install
 meta:
   bitrise.io:
-    stack: osx-xcode-13.3.x
+    stack: osx-xcode-13.4.x

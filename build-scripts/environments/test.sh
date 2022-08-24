@@ -16,6 +16,6 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Name of script to set environments
 SET_ENVIRONMENTS_SCRIPT_NAME="set-environments.sh"
 
-# Set environments to live (note only 2 environments for Firebase)
+# Set environments to test
 ${DIR}/${SET_ENVIRONMENTS_SCRIPT_NAME} "test" "staging-GoogleService-Info.plist"
 

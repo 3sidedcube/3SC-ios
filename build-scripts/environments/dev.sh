@@ -16,6 +16,6 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Name of script to set environments
 SET_ENVIRONMENTS_SCRIPT_NAME="set-environments.sh"
 
-# Set environments to live
+# Set environments to dev
 ${DIR}/${SET_ENVIRONMENTS_SCRIPT_NAME} "dev" "staging-GoogleService-Info.plist"
 

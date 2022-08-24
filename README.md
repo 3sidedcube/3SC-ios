@@ -1,41 +1,44 @@
 # 3SC-ios
-A repository of useful files for iOS development.
+A repository of useful files and documentation for iOS development at [3 Sided Cube](https://3sidedcube.com/).
 
-# install-depedencies.sh
-The [install-depedencies.sh](https://github.com/3sidedcube/3SC-ios/blob/master/install-dependencies.sh) script is used to download and install dependencies used in an iOS app.
-Some dependencies are assumed, such as `xcodebuild` and `ruby`.
-The dependencies which are installed are:
-- [Homebrew](https://brew.sh/) for installing software packages
-- [SwiftLint](https://github.com/realm/SwiftLint) for linting in Swift
-- [Carthage](https://github.com/Carthage/Carthage) for building binary frameworks
+## New Starters
+Welcome to 3 Sided Cube 👋. It's great to have you on board with us!
 
-## Usage
+### Your Toolkit
+For iOS, standard tools we recommend getting set up with include, but are not limited to:
 
-To fetch and run the script:
+* [Xcode](https://developer.apple.com/xcode/) and command line tools
+* Various [Developer tools](#developer-tools)
+* (Optional) Git GUI like [Github Desktop](https://desktop.github.com/)
+* (Optional) Merge conflict editor like [VSCode](https://code.visualstudio.com/)
+* (Optional) [Figma](https://www.figma.com/downloads/) desktop app for designs
 
+### Developer Tools
+
+Firstly, make sure to install [Homebrew](https://brew.sh/)
 ```bash
-# URL of the script to install iOS project dependencies
-INSTALL_DEPENDENCIES_SCRIPT_URL="https://raw.githubusercontent.com/3sidedcube/3SC-ios/master/install-dependencies.sh"
-
-# Fetch install script and pass in command line arguments
-curl -sfL ${INSTALL_DEPENDENCIES_SCRIPT_URL} | bash -s -- $@
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-To skip installing the dependencies pass `--skip-dependencies` as a command line argument.
+Using Homebrew you can install:
 
-# ios-gitignore
+* [Git](https://git-scm.com/) for version control (`brew install git`)
+* [SwiftLint](https://github.com/realm/SwiftLint) for linting in Swift (`brew install swiftlint`)
+* [Carthage](https://github.com/Carthage/Carthage) for building binary frameworks (`brew install carthage`)
+
+### Bitbucket SSH Keys
+Please follow this [Atlassian SSH Keys Guide](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/) carefully to ensure your Git client can authenticate with Bitbucket.
+
+## ios-gitignore
 The [ios-gitignore](https://github.com/3sidedcube/3SC-ios/blob/master/ios-gitignore) is a common `.gitignore` file used in iOS projects.
+Save as `.gitignore` in the root project directory.
+Make sure not to get it confused with the `.gitignore` of this repository!
 
-## Usage
-Bring into the root of your project as the `.gitignore` file.
-
-# ios-swiftlint.yml
+## ios-swiftlint.yml
 The [ios-swiftlint.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-swiftlint.yml) is a common `.swiftlint.yml` file used in iOS projects.
+Save as `.swiftlint.yml` in the root project directory.
 
-## Usage
-Bring into the root of your project as the `.swiftlint.yml` file.
-
-# ios-bitrise.yml
+## ios-bitrise.yml
 The [ios-bitrise.yml](https://github.com/3sidedcube/3SC-ios/blob/master/ios-bitrise.yml) is a common `bitrise.yml` file used in iOS projects.
 It creates the following workflows:
 
@@ -45,15 +48,19 @@ It creates the following workflows:
 * `staging`: Run `install`, point at staging environments, and then run `app-store`
 * `test`: Run `install`, point at test environments, and then run `app-store`
 
-When a PR is created, an `install` build is triggered to check that the app builds and its tests pass.
-When `develop` is pushed, `live` is run to upload a new build to App Store Connect.
+The file contains the following triggers:
 
-This file needs app specific changes, e.g. point at the App Store team ID.
+* When a PR is created, the `install` workflow is run.
+* When `develop` is pushed, the `test` workflow is run.
+* When `release/*` or `hotfix/*` are pushed, the `live` workflow is run.
 
-## Documentation
+This file needs app specific changes, e.g. point at the App Store Team ID.
+Save as `bitrise.yml` in the root project directory.
+
+### Documentation
 There is a [Confluence page](https://3sidedcube.atlassian.net/wiki/spaces/IM/pages/2354413569) documenting the steps taken when creating an iOS app in Bitrise using a `bitrise.yml` file.
 
-## Secret Environment Variables
+### Secret Environment Variables
 
 * `APPLE_ID`
 * `APPLE_ID_PASSWORD`
@@ -66,13 +73,13 @@ Note the `APP_SLACK_WEBHOOK` depends on the channel you want to post messages in
 You need to open the [3SC-Bitrise Slack app](https://api.slack.com/apps/A024S8Q7SKG) and add a new "Incoming Webhook".
 The others are shared across apps and can be taken from another app.
 
-### Note
+#### Note
 
 The Slack webhook will post all builds into the 3SC Bitrise channel.
 The app Slack webhook can be used to post to specific channel.
 The Slack webhook method is deprecated by Slack (but still works), the app webhook uses a Slack app.
 
-## Environment Variables
+### Environment Variables
 
 * `BITRISE_PROJECT_PATH = <project-name>.xcodeproj`
 * `BITRISE_SCHEME = <project-name>`
@@ -80,21 +87,18 @@ The Slack webhook method is deprecated by Slack (but still works), the app webho
 * `INFO_PLIST_PATH = <project-name>/Info.plist`
 * `TEAM_ID = <team-id>`
 
-## Usage
-Use when creating a Bitrise app. Can be stored in the project repository.
-
-## Helper Script
+### Helper Script
 Create a `bitrise.yml` in your project by running:
 ```bash
 bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/bitrise.sh)"
 ```
 
-## Scripts
+### Scripts
 There are various scripts run by the `bitrise.yml` steps.
 These can be found in the [build-scripts](https://github.com/3sidedcube/3SC-ios/blob/master/build-scripts) directory.
 Make sure to edit them so they are relevant to your app.
 
-# Sending Push Notifications
+## Sending Push Notifications
 
 You can send yourself a push notification using a token (`p8`) or certificate (`p12`).
 Both can be generated in the Apple Developer Console. 
@@ -103,8 +107,8 @@ In the case of `p12`, typically a `cer` file is installed to your keychain and t
 The scripts below follow the steps outlined by Apple in their PNs [command line tools documentation](https://developer.apple.com/documentation/usernotifications/sending_push_notifications_using_command-line_tools).
 In both cases, make sure to **set the variables** at the top of the script before sending!
 
-## Token (p8)
+### Token (p8)
 Send a push notification using a `p8` with [this script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-p8.sh).
 
-## Certificate (p12)
+### Certificate (p12)
 Send a push notification using a `p12` with [this script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-p12.sh).
