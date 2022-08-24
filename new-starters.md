@@ -25,3 +25,10 @@ Using Homebrew you can install:
 
 ## Bitbucket SSH Keys
 Please follow this [Atlassian SSH Keys Guide](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/) carefully to ensure your Git client can authenticate with Bitbucket.
+
+## Branching Model
+We use the [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) branching model to organise our branches.
+Though it has now been marked as "legacy", the model continues to fit well with our production process.
+
+## Pull Requests
+Please see the 3 Sided Cube Confluence page documenting a [Pull Request Template](https://3sidedcube.atlassian.net/l/cp/znE3vJNA).
