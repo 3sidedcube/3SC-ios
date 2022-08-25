@@ -87,3 +87,7 @@ Send a push notification using a `p8` with [this script](https://github.com/3sid
 
 ### Certificate (p12)
 Send a push notification using a `p12` with [this script](https://github.com/3sidedcube/3SC-ios/blob/master/send-push-p12.sh).
+
+## 3SC Frameworks
+3SC have a lot of frameworks, quite a few on the legacy side now but are still used.
+Please see our [spreadsheet](https://docs.google.com/spreadsheets/d/1AFjO2I5mCMWy0cxjtfg8fjrKe3xuzMvJQeaeFe6idfM/edit?usp=sharing) for more information.
