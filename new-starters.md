@@ -32,3 +32,11 @@ Though it has now been marked as "legacy", the model continues to fit well with 
 
 ## Pull Requests
 Please see the 3 Sided Cube Confluence page documenting a [Pull Request Template](https://3sidedcube.atlassian.net/l/cp/znE3vJNA).
+
+## Swift Style Guide
+Please make sure to familiarise yourself with the following Swift style guides:
+
+* [Swift API Design Guideline](https://www.swift.org/documentation/api-design-guidelines/), and other similar articles that Apple publish
+* [Ray Winderlich Style Guide](https://github.com/kodecocodes/swift-style-guide)
+
+This enables us to write the best quality code we can.
