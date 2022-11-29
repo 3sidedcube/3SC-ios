@@ -156,6 +156,13 @@ cp -rf "${tmpDir}/SwaggerClient/Classes/Swaggers"/* "${swiftPackagePath}"
 # Clean up with SwiftLint
 swiftlint --fix
 
+# Print contents of Cartfile. Might be used to check the dependency versions are correct in the Swift Package.
+cartfile="${tmpDir}/Cartfile"
+if [ -f "${cartfile}" ]; then
+    print "Ensure dependices in Package.swift file match the Cartfile:"
+    cat "${cartfile}"
+fi
+
 # Clean up
 cleanup
 
