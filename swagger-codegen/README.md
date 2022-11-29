@@ -10,7 +10,7 @@ Scripts to generate a Swift Package from an OpenAPI JSON URL.
 
 Alternatively, if you prefer the script to prompt for input, run:
 ```bash
-bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/generate.sh)"
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/swagger-codegen/generate.sh)"
 ```
 
 ## References
