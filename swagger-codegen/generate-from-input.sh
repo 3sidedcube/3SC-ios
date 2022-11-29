@@ -36,7 +36,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 TMP_DIR="${SCRIPT_DIR}/tmp-${SCRIPT_NAME}"
 
 # Remote URL where files to perform generation are stored
-REMOTE_SRC_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/swagger-codegen/swagger-codegen"
+REMOTE_SRC_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/swagger-codegen"
 
 # Directory of the generated files
 GENERATED_DIR="${TMP_DIR}/SwaggerClient/Classes/Swaggers"
