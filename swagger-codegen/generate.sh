@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
 #
-# Script: generate.sh
-# Usage: ./generate.sh <open-api-json-url> <swift-package-name>
+# Script: 
+# generate.sh
+# 
+# Usage: 
+# ./generate.sh <open-api-json-url> <swift-package-src-path>
 #
-# Generate a Swift Package from an OpenAPI URL using Swagger Codegen.
-# Configurable variables are provided by user input or command line argument.
+# Description:
+# Generate Swift code from an OpenAPI URL using Swagger Codegen.
+# Configurable variables are provided by command line argument or user input.
+# If command line arguments are omitted, then the script will prompt for input.
+#
+# Warning:
+# Running this script may overwrite files in the swift package.
+#
+# Resources:
 # https://github.com/swagger-api/swagger-codegen
 #
 
@@ -26,26 +36,8 @@ YELLOW='\033[0;33m'
 # No color
 NC='\033[0m'
 
-# Name of this script
-SCRIPT_NAME=`basename "$0"`
-
-# Directory of this script
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-# Temporary directory to store downloaded files. Deleted on exit.
-TMP_DIR="${SCRIPT_DIR}/tmp-${SCRIPT_NAME}"
-
-# Remote URL where files to perform generation are stored
-REMOTE_SRC_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/swagger-codegen"
-
-# Name of the swagger script
-SWAGGER_SCRIPT_NAME="swagger.sh"
-
-# Name of the template Package.swift file
-PACKAGE_TEMPLATE_NAME="Package.swift.template"
-
-# Directory of the generated files
-GENERATED_DIR="${TMP_DIR}/SwaggerClient/Classes/Swaggers"
+# Command of swagger-codegen
+SWAGGER_CODEGEN_COMMAND="swagger-codegen"
 
 # ============================== Functions ==============================
 
@@ -79,7 +71,7 @@ function fatalError {
 # Returns the response string.
 function prompt {
     local response
-    read -r -p "$(printYellow "$1: ")" response
+    read -e -p "$(printYellow "$1")" response
     echo "${response}"
 }
 
@@ -90,51 +82,61 @@ function checkNotEmpty {
     fi
 }
 
-# Use curl to download a file the remote source directory
-function download {
-    curl -H 'Cache-Control: no-cache' "${REMOTE_SRC_URL}/$1" -o "$1"
-}
-
-# Clean up temporary files
-function cleanup {
-    rm -rf ${TMP_DIR}
-}
-
 # ============================== Main ==============================
 
-# Remote URL of Open API JSON spec from user input
+# Check swagger-codegen is installed
+if ! [ -x "$(command -v ${SWAGGER_CODEGEN_COMMAND})" ]; then
+    fatalError "Please install ${SWAGGER_CODEGEN_COMMAND}."
+fi
+
+# Remote URL of Open API JSON spec
 remoteUrl=""
 
-# Name of the swift package from user input
-packageName=""
+# Path to the source directory of the swift package
+swiftPackagePath=""
 
 if [ "$#" -eq 0 ]; then
 
     # No command line arguments, get input from user prompt
-    remoteUrl=$(prompt "Please enter the URL of the OpenAPI JSON to generate from")
-    packageName=$(prompt "Please enter the name of the Swift Package to generate")
+    remoteUrl=$(prompt "Please enter the URL of the OpenAPI JSON to generate from: ")
+    checkNotEmpty "${remoteUrl}"
+    
+    swiftPackagePath=$(prompt "Please enter the path of the Swift Package: ")
+    checkNotEmpty "${swiftPackagePath}"
 
 elif [ "$#" -eq 2 ]; then
 
     # Get input from command line arguments
     remoteUrl=$1
-    packageName=$2
+    swiftPackagePath=$2
 
 else
 
     # Invalid number of command line arguments provided
-    fatalError "Usage: ./${SCRIPT_NAME} <open-api-json-url> <swift-package-name>"
+    fatalError "Usage: $0 <open-api-json-url> <swift-package-path>"
 fi
 
-# Check inputs are non-empty
-checkNotEmpty "${remoteUrl}"
-checkNotEmpty "${packageName}"
+# Expand tilde using Bash parameter expansion
+swiftPackagePath="${swiftPackagePath/#\~/$HOME}"
 
-# Directory of the swift package
-packageDir="${SCRIPT_DIR}/${packageName}"
+# Remove single trailing slash if required
+swiftPackagePath=${swiftPackagePath%/}
 
-# Print start
-print "Downloading temporary files for generation..."
+# Check swift package directory exists
+if [ ! -d "${swiftPackagePath}" ]; then
+    fatalError "Swift package path: '${swiftPackagePath}' does not exist."
+fi
+
+# Move to swift package directory
+cd ${swiftPackagePath}
+
+# Temporary directory to store generated files. Deleted on exit.
+tmpDir="${swiftPackagePath}/tmp-swagger-codegen"
+
+# Clean up temporary files
+function cleanup {
+    rm -rf ${tmpDir}
+}
 
 # Clean up on exit
 trap cleanup EXIT
@@ -142,36 +144,14 @@ trap cleanup EXIT
 # Clean up
 cleanup
 
-# Make tmp directory and navigate into it
-mkdir ${TMP_DIR}
-cd ${TMP_DIR}
-
-# Download files used for generation
-download "${SWAGGER_SCRIPT_NAME}"
-download "${PACKAGE_TEMPLATE_NAME}"
-
 # Print generation
 print "Running swagger-codegen..."
 
-# Generate code in tmp directory
-sh ${SWAGGER_SCRIPT_NAME} ${remoteUrl} ${TMP_DIR}
+# Execute swagger-codegen
+${SWAGGER_CODEGEN_COMMAND} generate -i ${remoteUrl} -l swift5 -o ${tmpDir}
 
-# Make swift package file
-rm -rf ${packageDir}
-mkdir ${packageDir}
-cd ${packageDir}
-
-# Make swift package
-swift package init
-
-# Remove tests
-rm -rf "Tests"
-
-# Write new Package.swift file
-sed -e "s/{PackageName}/${packageName}/" ${TMP_DIR}/${PACKAGE_TEMPLATE_NAME} > "Package.swift"
-
-# Copy API files into swift package
-cp -rf ${GENERATED_DIR}/* "Sources"
+# Copy generated files into swift package
+cp -rf "${tmpDir}/SwaggerClient/Classes/Swaggers"/* "${swiftPackagePath}"
 
 # Clean up with SwiftLint
 swiftlint --fix
@@ -180,4 +160,4 @@ swiftlint --fix
 cleanup
 
 # Print success
-printGreen "${packageName} Swift Package successfully generated!"
+printGreen "swagger-codegen files successfully written to '${swiftPackagePath}'!"

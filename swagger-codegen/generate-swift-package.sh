@@ -10,13 +10,16 @@
 # Set defaults
 set -o nounset -o errexit -o errtrace -o pipefail
 
+# Script directory (use for relative path to ${SWIFT_PACKAGE_PATH})
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # ============================== Configurable Variables ==============================
 
 # Remote URL of OpenAPI URL
-REMOTE_URL="https://developers.strava.com/swagger/swagger.json"
+REMOTE_URL="<open-api-json-url>"
 
-# Name of the swift package to generate
-PACKAGE_NAME="StravaAPI"
+# Path to the source code files of the Swift package
+SWIFT_PACKAGE_PATH="<swift-package-src-path>"
 
 # ============================== Script ==============================
 
@@ -41,7 +44,8 @@ cleanup
 curl -H 'Cache-Control: no-cache' "${REMOTE_SCRIPT_URL}" -o "${TMP_SCRIPT}"
 
 # Run generate script
-sh "${TMP_SCRIPT}" ${REMOTE_URL} ${PACKAGE_NAME}
+sh "${TMP_SCRIPT}" "${REMOTE_URL}" "${SWIFT_PACKAGE_PATH}"
 
 # Clean up
 cleanup
+
