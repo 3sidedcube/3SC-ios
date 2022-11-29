@@ -1,17 +1,16 @@
 # Swagger Codegen
 
 Scripts to generate a Swift Package from an OpenAPI JSON URL.
-It's common to add the `generate.sh` script to your project, updating the configuration variables.
-Updating the Swift package would then be as simple as:
-```bash
-./generate.sh
-```
 
-## Remote Script
+## Usage
 
-Run the remote script with the following command:
+1. Add the `generate-swift-package.sh` to your project
+2. Update the configuration variables at the top of the script accordingly
+3. Run the script to generate the API Swift Package `./generate-swift-package.sh`
+
+Alternatively, if you prefer the script to prompt for input, run:
 ```bash
-bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/generate-with-prompt.sh)"
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/generate.sh)"
 ```
 
 ## References
