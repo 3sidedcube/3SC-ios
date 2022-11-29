@@ -159,7 +159,7 @@ swiftlint --fix
 # Print contents of Cartfile. Might be used to check the dependency versions are correct in the Swift Package.
 cartfile="${tmpDir}/Cartfile"
 if [ -f "${cartfile}" ]; then
-    print "If not done already, ensure dependencies in Package.swift file match the Cartfile:"
+    print "If not done already, ensure dependencies in the Package.swift file match the Cartfile:"
     cat "${cartfile}"
 fi
 
