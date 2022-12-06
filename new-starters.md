@@ -14,7 +14,7 @@ Standard tools for iOS we recommend getting set up with include:
 
 Firstly, make sure to install [Homebrew](https://brew.sh/)
 ```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 Using Homebrew you can install:
