@@ -27,8 +27,8 @@ set -o nounset -o errexit -o errtrace -o pipefail
 # Authentication to FCM
 BEARER=""
 
-# Device push token
-TOKEN=""
+# Firebase push token (not APNs device token)
+FCM_TOKEN=""
 
 # Firebase project ID
 PROJECT_ID=""
@@ -45,7 +45,7 @@ PAYLOAD_FILE="${SCRIPT_DIR}/fcm-payload.json"
 
 # Read payload from file and inject token parameter
 payload=`cat ${PAYLOAD_FILE}`
-payload=${payload/'{TOKEN}'/$TOKEN}
+payload=${payload/'{TOKEN}'/$FCM_TOKEN}
 
 # Execute curl command
 curl -X POST \
