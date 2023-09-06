@@ -1,4 +1,4 @@
-# 3SC-ios
+# 3SC ios
 
 A repository of useful files and documentation for iOS development at [3 Sided Cube](https://3sidedcube.com/).
 
