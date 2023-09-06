@@ -1,9 +1,9 @@
----
-format_version: '11'
-default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
+format_version: "11"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
 workflows:
   app-store:
+    description: Upload a previously cloned project to the App Store. NOT to be run in isolation.
     steps:
     - slack@3:
         title: 'Slack Bitrise Channel: Requested'
@@ -11,39 +11,37 @@ workflows:
         - pretext: '*Build Requested!*'
         - webhook_url: $SLACK_WEBHOOK
         - color: warning
-        is_always_run: false
     - script@1:
-        title: 'Set Xcode Build Number'
+        title: Set Xcode Build Number
         inputs:
         - content: |-
             #!/usr/bin/env bash
             ./scripts/set-build-number.sh $BITRISE_BUILD_NUMBER
     - xcode-archive@4:
         inputs:
-        - export_method: app-store
-        - distribution_method: app-store
+        - export_method: $BITRISE_EXPORT_METHOD
+        - distribution_method: $BITRISE_EXPORT_METHOD
         - automatic_code_signing: apple-id
         - export_development_team: $TEAM_ID
+        - configuration: $BUILD_CONFIGURATION
         - team_id: $TEAM_ID
     - deploy-to-itunesconnect-application-loader@1:
         inputs:
         - password: $APPLE_ID_PASSWORD
         - app_password: $APP_SPECIFIC_PASSWORD
-        - altool_options: '--asc_provider ShortProviderName'
+        - altool_options: --asc_provider ShortProviderName
         - itunescon_user: $APPLE_ID
-    - deploy-to-bitrise-io@2:
-        inputs:
-        - notify_user_groups: none
+    - deploy-to-bitrise-io@2: {}
     - slack@3:
         title: 'Slack App Channel: Succeeded'
         is_always_run: false
         inputs:
         - color: good
         - text: '*A new iOS build has been uploaded to Test Flight*'
-        - pretext: ''
-        - author_name: ''
-        - title: ''
-        - message: ''
+        - pretext: ""
+        - author_name: ""
+        - title: ""
+        - message: ""
         - fields: |
             App|${BITRISE_APP_TITLE}
             Branch|${BITRISE_GIT_BRANCH}
@@ -52,80 +50,75 @@ workflows:
         - webhook_url: $APP_SLACK_WEBHOOK
     - slack@3:
         title: 'Slack Bitrise Channel: Succeeded'
+        is_always_run: false
         inputs:
         - color: good
         - webhook_url: $SLACK_WEBHOOK
-        is_always_run: false
   dev:
+    description: Make a build for the dev configuration.
     before_run:
     - install
     after_run:
     - app-store
     steps:
-    - script@1:
-        title: 'Dev'
+    - set-env-var@0:
         inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            ./scripts/environments/dev.sh
+        - destination_keys: BITRISE_SCHEME
+        - value: {projectName}-Dev
+    - set-env-var@0:
+        inputs:
+        - destination_keys: BUILD_CONFIGURATION
+        - value: Release-Dev
   install:
+    description: Clone the project and run tests.
     steps:
     - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - script@1:
-        title: 'Install'
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            ./scripts/install.sh --skip-carthage
-    - carthage@3:
-        inputs:
-        - carthage_options: '--use-xcframeworks --platform iOS'
-        - carthage_command: update
-    - xcode-test@4:
-        inputs:
-        - destination: 'platform=iOS Simulator,name=iPhone 13,OS=latest'
+    - git-clone@8: {}
   live:
+    description: Make a build for the live configuration.
     before_run:
     - install
     after_run:
     - app-store
     steps:
-    - script@1:
-        title: 'Live'
+    - set-env-var@0:
         inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            ./scripts/environments/live.sh
-  primary:
-    before_run:
-    - install
-    after_run:
-    - app-store
+        - destination_keys: BITRISE_SCHEME
+        - value: {projectName}-Live
+    - set-env-var@0:
+        inputs:
+        - destination_keys: BUILD_CONFIGURATION
+        - value: Release-Live
   staging:
+    description: Make a build for the staging configuration.
     before_run:
     - install
     after_run:
     - app-store
     steps:
-    - script@1:
-        title: 'Staging'
+    - set-env-var@0:
         inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            ./scripts/environments/staging.sh
+        - destination_keys: BITRISE_SCHEME
+        - value: {projectName}-Staging
+    - set-env-var@0:
+        inputs:
+        - destination_keys: BUILD_CONFIGURATION
+        - value: Release-Staging
   test:
+    description: Make a build for the test configuration.
     before_run:
     - install
     after_run:
     - app-store
     steps:
-    - script@1:
-        title: 'Test'
+    - set-env-var@0:
         inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            ./scripts/environments/test.sh
+        - destination_keys: BITRISE_SCHEME
+        - value: {projectName}-Test
+    - set-env-var@0:
+        inputs:
+        - destination_keys: BUILD_CONFIGURATION
+        - value: Release-Test
 app:
   envs:
   - opts:
@@ -133,7 +126,7 @@ app:
     BITRISE_PROJECT_PATH: {projectName}.xcodeproj
   - opts:
       is_expand: false
-    BITRISE_SCHEME: {projectName}
+    BITRISE_SCHEME: {projectName}-Test
   - opts:
       is_expand: false
     BITRISE_EXPORT_METHOD: app-store
@@ -154,4 +147,5 @@ trigger_map:
   workflow: install
 meta:
   bitrise.io:
-    stack: osx-xcode-13.4.x
+    stack: osx-xcode-14.3.x-ventura
+    machine_type_id: g2-m1.4core

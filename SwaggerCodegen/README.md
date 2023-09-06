@@ -13,7 +13,7 @@ The [swagger-codegen](https://github.com/swagger-api/swagger-codegen) command mu
 
 Alternatively, if you prefer the script prompts for input, run:
 ```bash
-bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/swagger-codegen/generate.sh)"
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/3sidedcube/3sc-ios/develop/SwaggerCodegen/generate.sh)"
 ```
 
 ## Other References

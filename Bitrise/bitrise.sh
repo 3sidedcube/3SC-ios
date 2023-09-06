@@ -3,8 +3,7 @@
 #
 # Script: bitrise.sh
 # Usage: ./bitrise.sh
-#
-# Create a bitrise.yml from user input.
+# Description: Create a bitrise.yml from user input.
 #
 
 # Set defaults
@@ -18,8 +17,11 @@ BITRISE_FILE="bitrise.yml"
 # Template file
 TEMPLATE_BITRISE_FILE="template-bitrise.yml"
 
+# 3SC-iOS branch
+BRANCH="develop"
+
 # Remote script to fetch template file
-TEMPLATE_BITRISE_FILE_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/master/ios-bitrise.yml"
+TEMPLATE_BITRISE_FILE_URL="https://raw.githubusercontent.com/3sidedcube/3sc-ios/${BRANCH}/Bitrise/bitrise.yml"
 
 # Red color
 RED='\033[0;31m'

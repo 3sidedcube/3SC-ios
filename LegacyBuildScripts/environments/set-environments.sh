@@ -2,12 +2,8 @@
 
 #
 # Script: set-environments.sh
-# Usage: ./set-environments.sh  [api-environment] [google-service-file]
-# Arguments:
-# - [api-environment]: API environment to set
-# - [google-service-file]: GoogleService-Info.plist file
-#
-# Update the app API environment and GoogleService-Info.plist file.
+# Usage: ./set-environments.sh  <api-environment> <google-service-file>
+# Description: Update the app API environment and GoogleService-Info.plist file.
 #
 
 # Set defaults
@@ -24,10 +20,10 @@ API_ENVIRONMENT="{apiEnvironment}" # EDIT!
 # ============================== Constants ==============================
 
 # Get directory path of this script
-DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 
 # Root of the source files in the Xcode project
-XCODE_ROOT_PATH="${DIR}/../../${PROJECT_FOLDER}"
+XCODE_ROOT_PATH="${SCRIPT_DIR}/../../${PROJECT_FOLDER}"
 
 # Get the file path of the Info.plist file
 INFO_PLIST_PATH="${XCODE_ROOT_PATH}/Info.plist"
@@ -39,7 +35,7 @@ GOOGLE_SERVICE_FILE_NAME="GoogleService-Info.plist"
 CURRENT_GOOGLE_SERVICE_FILE="${XCODE_ROOT_PATH}/${GOOGLE_SERVICE_FILE_NAME}"
 
 # Directory where the GoogleService-Info.plist files are located
-GOOGLE_SERVICE_DIRECTORY="${DIR}/GoogleServiceFiles"
+GOOGLE_SERVICE_DIRECTORY="${SCRIPT_DIR}/GoogleServiceFiles"
 
 # ============================== Main ==============================
 
