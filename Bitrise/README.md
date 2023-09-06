@@ -2,7 +2,7 @@
 
 ## bitrise.yml
 
-The [bitrise.yml](https://github.com/3sidedcube/3SC-ios/blob/develop/Bitrise/bitrise.yml) is a common `bitrise.yml` file used in iOS projects.
+A common `bitrise.yml` file used in iOS projects.
 It creates the following workflows:
 
 * `install`: Fetch from the remote, install dependencies, and execute tests

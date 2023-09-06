@@ -4,7 +4,7 @@ A repository of useful files and documentation for iOS development at [3 Sided C
 
 Each directory has its own `README.md` to describe the files it contains.
 
-# New Starters
+## New Starters
 
 If you are a new starter, we have a [guide](https://github.com/3sidedcube/3SC-ios/blob/develop/new-starters.md) to help you get set up.
 
