@@ -1,0 +1,9 @@
+{
+  "aps": {
+    "alert": {
+      "title": "APNs Push Notification Title",
+      "body": "APNs push notification body"
+    },
+    "sound": "default"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "message": {
+    "notification": {
+      "title": "FCM Push Notification Title",
+      "body": "FCM push notification body"
+    },
+    "token": "{TOKEN}",
+    "data": {
+      "key": "value"
+    }
+  }
+}
