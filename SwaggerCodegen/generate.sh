@@ -101,7 +101,7 @@ if [ "$#" -eq 0 ]; then
     remoteUrl=$(prompt "Please enter the URL of the OpenAPI JSON to generate from: ")
     checkNotEmpty "${remoteUrl}"
     
-    swiftPackagePath=$(prompt "Please enter the path where source files should be written: ")
+    swiftPackagePath=$(prompt "Please enter the (full) path to the directory where source files should be written (e.g. /path/to/package/Sources): ")
     checkNotEmpty "${swiftPackagePath}"
 
 elif [ "$#" -eq 2 ]; then
@@ -159,7 +159,7 @@ swiftlint --fix
 # Print contents of Cartfile. Might be used to check the dependency versions are correct in the Swift Package.
 cartfile="${tmpDir}/Cartfile"
 if [ -f "${cartfile}" ]; then
-    print "If not done already, ensure dependencies in the Package.swift file match the Cartfile:"
+    print "If not done already, ensure the dependencies in the Package.swift file match the Cartfile:"
     cat "${cartfile}"
 fi
 
