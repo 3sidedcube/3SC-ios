@@ -101,7 +101,7 @@ if [ "$#" -eq 0 ]; then
     remoteUrl=$(prompt "Please enter the URL of the OpenAPI JSON to generate from: ")
     checkNotEmpty "${remoteUrl}"
     
-    swiftPackagePath=$(prompt "Please enter the path of the Swift Package: ")
+    swiftPackagePath=$(prompt "Please enter the path where source files should be written: ")
     checkNotEmpty "${swiftPackagePath}"
 
 elif [ "$#" -eq 2 ]; then
