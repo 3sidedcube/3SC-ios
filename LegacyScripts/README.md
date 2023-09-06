@@ -1,4 +1,4 @@
-# Legacy Build Scripts
+# Legacy Scripts
 
 Scripts for installation and setting up an environment via a scipt.
 The installation is deprecated in preference of using Xcode with SPM.
