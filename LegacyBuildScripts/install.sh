@@ -15,7 +15,7 @@ set -o nounset -o errexit -o errtrace -o pipefail
 # ============================== Constants ==============================
 
 # Get directory path of this script
-SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Get the project directory
 PROJECT_DIRECTORY="${SCRIPT_DIR}/.."

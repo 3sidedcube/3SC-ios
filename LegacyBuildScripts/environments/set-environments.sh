@@ -20,7 +20,7 @@ API_ENVIRONMENT="{apiEnvironment}" # EDIT!
 # ============================== Constants ==============================
 
 # Get directory path of this script
-SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Root of the source files in the Xcode project
 XCODE_ROOT_PATH="${SCRIPT_DIR}/../../${PROJECT_FOLDER}"
