@@ -5,7 +5,6 @@ excluded:
 disabled_rules:
   - identifier_name
 opt_in_rules:
-  - anyobject_protocol
   - array_init
   - attributes
   - closure_end_indentation
@@ -25,6 +24,7 @@ opt_in_rules:
   - extension_access_modifier
   - fallthrough
   - fatal_error_message
+  - file_length
   - file_name
   - first_where
   - flatmap_over_map_reduce
@@ -82,7 +82,7 @@ type_body_length:
   ignores_comments: true
 file_length:
   warning: 500
-  ignores_comments: true
+  ignore_comment_only_lines: true
 reporter: "xcode"
 number_separator:
   minimum_length: 5
