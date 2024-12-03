@@ -69,6 +69,7 @@ opt_in_rules:
   - vertical_whitespace_opening_braces
   - xct_specific_matcher
   - yoda_condition
+  - private_swiftui_state
 force_cast: warning
 force_try:
   severity: error
